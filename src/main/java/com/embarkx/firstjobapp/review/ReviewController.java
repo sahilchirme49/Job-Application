@@ -1,4 +1,5 @@
 package com.embarkx.firstjobapp.review;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/companies/{companyId}")
 public class ReviewController {
+
     private ReviewService reviewService;
 
     public ReviewController(ReviewService reviewService) {
@@ -55,7 +57,7 @@ public class ReviewController {
     @DeleteMapping("/reviews/{reviewId}")
     public ResponseEntity<String> deleteReview(@PathVariable long companyId,
                                                @PathVariable long reviewId ){
-        boolean isReviewDeleted = ReviewService.deleteReview(companyId , reviewId);
+        boolean isReviewDeleted = reviewService.deleteReview(companyId , reviewId);
 
         if(isReviewDeleted){
             return new ResponseEntity<>("review deleted successfully" ,
